@@ -21,3 +21,11 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/BookFlight/nbproject/private/
+/BookFlight/build/
+/Test/nbproject/private/
+/BookFlight/dist/
+/JavaFXApplication4/nbproject/private/
+/JavaFXApplication4/build/
+/JavaFXApplication5/nbproject/private/
+/JavaFXApplication5/build/
