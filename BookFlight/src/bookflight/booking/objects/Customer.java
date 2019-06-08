@@ -5,85 +5,87 @@
  */
 package bookflight.booking.objects;
 
-import bookflight.booking.Exceptions.SeatClassException;
-import bookflight.booking.SeatConfig;
+import bookflight.booking.SeatClass;
+import bookflight.booking.SeatType;
 
 /**
  *
  * @author j187411
  */
 public class Customer {
-    public Customer(String name, int age) {
-        this.name = name;
-        this.age = age;
-        seatingClass = SeatConfig.SEAT_C_ECONOMY;
-        prefSeatingType = SeatConfig.SEAT_T_AISLE;
+    public Customer() {
+        firstName = "";
+        lastName = "";
+        age = 20;
+        seatingClass = SeatClass.ECONOMY;
+        seatingType = SeatType.AISLE;
     }
     
-    private String name;
+    public Customer(String firstName, int age) {
+        this();
+        this.firstName = firstName;
+        this.age = age;
+    }
+    
+    public Customer(String firstName, String lastName, int age) {
+        this(firstName, age);
+        this.lastName = lastName;
+    }
+    
+    private String firstName;
+    private String lastName;
     private int age;
-    private int seatingClass;
-    private int prefSeatingType;
+    private SeatClass seatingClass;
+    private SeatType seatingType;
 
-    /**
-     * @return the name
-     */
     public String getName() {
-        return name;
+        return lastName.isEmpty() ? firstName : firstName + ", " + lastName;
+    }
+    
+    public String getFirstName() {
+        return firstName;
     }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    /**
-     * @return true if customers age is above or equal to 18
-     */
-    public boolean isAdult() {
-        return age >= 18;
+    public String getLastName() {
+        return lastName;
     }
 
-    /**
-     * @param age the age to set
-     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
 
-    /**
-     * @return the seatingClass
-     */
-    public int getSeatingClass() {
+    public SeatClass getSeatingClass() {
         return seatingClass;
     }
 
-    /**
-     * @param seatingClass the seatingClass to set
-     * @throws bookflight.booking.Exceptions.SeatClassException
-     */
-    public void setSeatingClass(int seatingClass) throws SeatClassException {
-        if (seatingClass != SeatConfig.SEAT_C_ECONOMY
-                || seatingClass != SeatConfig.SEAT_C_BUSINESS
-                || seatingClass != SeatConfig.SEAT_C_FIRST) {
-            throw new SeatClassException();
-        }
+    public void setSeatingClass(SeatClass seatingClass) {
         this.seatingClass = seatingClass;
     }
 
-    /**
-     * @return the prefSeatingType
-     */
-    public int getPrefSeatingType() {
-        return prefSeatingType;
+    public SeatType getSeatingType() {
+        return seatingType;
     }
 
-    /**
-     * @param prefSeatingType the prefSeatingType to set
-     */
-    public void setPrefSeatingType(int prefSeatingType) {
-        this.prefSeatingType = prefSeatingType;
+    public void setSeatingType(SeatType seatingType) {
+        this.seatingType = seatingType;
+    }
+
+    @Override
+    public String toString() {
+        return "firstName: " + getFirstName() + "\r\nlastName: " + getLastName()
+                + "\r\nage: " + getAge() + "\r\nseatingClass: " + getSeatingClass().toString()
+                + "\r\nseatingType: " + getSeatingType().toString();
     }
 }

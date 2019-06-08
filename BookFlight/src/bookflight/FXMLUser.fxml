@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="bookflight.FXMLUserController" >
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="14.0" layoutY="14.0" text="First Name" />
+            <TextField fx:id="textFieldFirstName" layoutX="14.0" layoutY="31.0" promptText="Jack" />
+            <Label layoutX="15.0" layoutY="56.0" text="Last Name" AnchorPane.rightAnchor="569.0" AnchorPane.topAnchor="56.0" />
+            <TextField fx:id="textFieldLastName" layoutX="14.0" layoutY="73.0" promptText="Layland" AnchorPane.rightAnchor="477.0" AnchorPane.topAnchor="73.0" />
+            <Label layoutX="15.0" layoutY="98.0" text="Age" />
+            <TextField fx:id="textFieldAge" layoutX="15.0" layoutY="115.0" promptText="15" />
+            <Label layoutX="14.0" layoutY="140.0" text="Preferred Seat Type" />
+            <ComboBox fx:id="comboBoxSeatType" layoutX="15.0" layoutY="157.0" prefWidth="150.0" promptText="Seat Type" />
+            <Label layoutX="14.0" layoutY="182.0" text="Preferred Seat Class" />
+            <ComboBox fx:id="comboBoxSeatClass" layoutX="14.0" layoutY="199.0" prefWidth="150.0" promptText="Seat Class" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
