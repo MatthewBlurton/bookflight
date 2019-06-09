@@ -5,7 +5,7 @@
  */
 package bookflight;
 
-import bookflight.booking.objects.Airplane;
+import bookflight.booking.objects.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -34,6 +34,10 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Airplane plane = new Airplane();
+        
+        Customer child = new Customer("Mourine", "Redmond", 7);
+        Customer adult = new Customer("Peter", "Redmond", 24);
+        
         System.out.println(plane);
     }
 }

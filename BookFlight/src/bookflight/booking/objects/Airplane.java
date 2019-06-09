@@ -12,22 +12,29 @@ import bookflight.booking.SeatType;
  *
  * @author j187411
  */
-public class Airplane {
+public class Airplane  {
     public Airplane() {
+        this(6, 12);
+    }
+    
+    private Airplane(int columns, int rows) {
         super();
-        seats = new Seat[6][12];
+        this.columns = columns;
+        this.rows = rows;
+        
+        seats = new Seat[columns][rows];
         
         // Initiate seats
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 12; j++) {
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
                 seats[i][j] = new Seat();
             }
         }
         
         // Generate all the seats for this airplane
-        for (int column = 0; column < 6; column++) {
-            for (int row = 0; row < 12; row++) {
-                // Set the seat types
+        for (int column = 0; column < columns; column++) {
+            for (int row = 0; row < rows; row++) {
+                // Set the seat types                
                 switch (column) {
                     // Seat type for window
                     // *-- --*
@@ -51,31 +58,50 @@ public class Airplane {
                 }
                 
                 // Set the seat class
-                // Seat class for first class (rows 1 & 2)
-                if (row >= 0 && row <= 1) {
+                // Seat class for first class (rows 0 and 1)
+                if (row >= 0 && row < 2) {
                     seats[column][row].setSeatClass(SeatClass.FIRST_CLASS);
-                } // Seat class for business class (rows 3-6)
-                else if (row > 1 && row <= 5) {
+                } // Seat class for business class (rows 2 to 5)
+                else if (row >= 2 && row < 6) {
                     seats[column][row].setSeatClass(SeatClass.BUSINESS);
-                } // Seat class for economy class (rows 7-*)
+                } // Seat class for economy class (rows 6-*)
                 else {
                     seats[column][row].setSeatClass(SeatClass.ECONOMY);
                 }
             }
         }
     }
+
     private Seat[][] seats;
+    private int columns;
+    private int rows;
+    
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+    
+    public Seat getSeat(int column, int row) {
+        return seats[column][row];
+    }
+    
+    public void assignSeat(int column, int row, Customer customer) {
+        seats[column][row].setBookedBy(customer);
+    }
     
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("       ABC DEF\r\n");
-        for (int row = 0; row < 12; row++) {
+        for (int row = 0; row < getRows(); row++) {
             builder.append("Row ");
             builder.append(row + 1);
             if (row < 9) builder.append(" ");
             builder.append(" ");
-            for (int column = 0; column < 6; column++) {
+            for (int column = 0; column < getColumns(); column++) {
                 builder.append(seats[column][row].getBooking());
                 if (column == 2) builder.append(' ');
             }
