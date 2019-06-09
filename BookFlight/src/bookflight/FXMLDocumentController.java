@@ -13,8 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 
 /**
  *
@@ -31,13 +35,23 @@ public class FXMLDocumentController implements Initializable {
 //        label.setText("Hello World!");
 //    }
     
+    @FXML
+    private GridPane gridPaneAirplane;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Airplane plane = new Airplane();
+        for (int i = 1; i < 8; i++) {
+            for (int j = 1; j < 13; j++) {
+                if (i != 4) {
+                    if (i < 4) {
+                        
+                    }
+                    gridPaneAirplane.add(new Button("Button"), i, j);
+                }
+            }
+        }
         
-        Customer child = new Customer("Mourine", "Redmond", 7);
-        Customer adult = new Customer("Peter", "Redmond", 24);
-        
-        System.out.println(plane);
     }
+    
+    private Airplane airplane;
 }
