@@ -114,19 +114,66 @@ public class FXMLDocumentController implements Initializable {
         // Bind adding new member form
         ObservableList<SeatClass> seatClass = FXCollections.observableArrayList(SeatClass.ECONOMY, SeatClass.BUSINESS, SeatClass.FIRST_CLASS);
         comboBoxSeatClass.setItems(seatClass);
+        comboBoxSeatClass.getSelectionModel().select(SeatClass.ECONOMY);
         
         ObservableList<SeatType> seatTypes = FXCollections.observableArrayList(SeatType.AISLE, SeatType.MIDDLE, SeatType.WINDOW);
         comboBoxSeatType.setItems(seatTypes);
+        comboBoxSeatType.getSelectionModel().select(SeatType.AISLE);
     }
     
     @FXML
     private void addCustomerButtonAction(ActionEvent event) {
+        String first = textFieldFirstName.getText();
         
+        // Validate first name input
+        if (first.length() < 3) {
+            Alert error = new Alert(AlertType.ERROR);
+            error.setHeaderText("The first name is incorrect");
+            error.setContentText("The input for the first name is incorrect, "
+                    + "please ensure that the first name's size is above 3.");
+            error.showAndWait();
+            return;
+        }
+        
+        // Validate last name input
+        String last = textFieldLastName.getText();
+        if (last.length() < 3) {
+            Alert error = new Alert(AlertType.ERROR);
+            error.setHeaderText("The last name is incorrect");
+            error.setContentText("The input for the last name is incorrect, "
+                    + "please ensure that the last name's size is above 3.");
+            error.showAndWait();
+            return;
+        }
+        
+        // Set an initial age number
+        int age = -1;
+        
+        // Validate the age input
+        try {
+            age = Integer.parseInt(textFieldAge.getText());
+        } catch (NumberFormatException nfe) {
+            Alert error = new Alert(AlertType.ERROR);
+            error.setHeaderText("The age entered is incorrect");
+            error.setContentText("The input for age is incorrect, please ensure "
+                    + "that the age entered are numbers only");
+            error.showAndWait();
+            return;
+        }
+        
+        // No validation necessary as the comboBox items both have default values
+        // making it impossible to select anything outside of the three valid options.
+        SeatClass seatClass = (SeatClass) comboBoxSeatClass.getValue();
+        SeatType seatType = (SeatType) comboBoxSeatType.getValue();
+        
+        // Add the new customer
+        customers.add(new Customer(first,last,age,seatClass,seatType));
     }
     
     @FXML
     private void bookFlightButtonAction(ActionEvent event) {
-        
+        Customer selectedCustomer =
+                (Customer) tableViewMembers.selectionModelProperty().getValue();
     }
     
     private void refreshSeats() {

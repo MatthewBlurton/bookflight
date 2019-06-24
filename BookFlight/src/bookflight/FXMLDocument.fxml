@@ -39,7 +39,7 @@
                </font>
             </TextArea>
             <Label layoutX="286.0" layoutY="14.0" text="Members" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="14.0" />
-            <Button layoutX="715.0" layoutY="336.0" mnemonicParsing="false" onAction="addCustomerButtonAction" text="Add Member" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="715.0" />
+            <Button layoutX="715.0" layoutY="336.0" mnemonicParsing="false" onAction="#addCustomerButtonAction" text="Add Member" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="715.0" />
             <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="297.0" prefWidth="378.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="286.0">
               <columns>
                 <TableColumn fx:id="tableColumnMembersFirstName" prefWidth="75.0" text="First Name" />
@@ -49,7 +49,7 @@
                   <TableColumn fx:id="tableColumnMembersPrefType" prefWidth="75.0" text="Pref. Type" />
               </columns>
             </TableView>
-            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="bookFlightButtonAction" prefHeight="25.0" prefWidth="378.0" text="Book Flight" />
+            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightButtonAction" prefHeight="25.0" prefWidth="378.0" text="Book Flight" />
             <Label layoutX="687.0" layoutY="14.0" text="Add Member" />
             <Label layoutX="687.0" layoutY="31.0" text="First Name" />
             <TextField fx:id="textFieldFirstName" layoutX="687.0" layoutY="48.0" promptText="Jack" />
