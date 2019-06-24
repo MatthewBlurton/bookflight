@@ -5,9 +5,16 @@
  */
 package bookflight;
 
+import bookflight.booking.SeatClass;
+import bookflight.booking.SeatType;
 import bookflight.booking.objects.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +25,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -36,22 +45,55 @@ public class FXMLDocumentController implements Initializable {
 //    }
     
     @FXML
-    private GridPane gridPaneAirplane;
+    private TextArea textAreaSeats;
+    
+    @FXML
+    private Button buttonNewMember;
+    
+    @FXML
+    private Button buttonBookFlight;
+    
+    // Tableview for members
+    @FXML
+    private TableView tableViewMembers;
+    @FXML
+    private TableColumn<Customer, String> tableColumnMembersFirstName;
+    @FXML
+    private TableColumn<Customer, String> tableColumnMembersLastName;
+    @FXML
+    private TableColumn<Customer, Integer> tableColumnMembersAge;
+    @FXML
+    private TableColumn<Customer, String> tableColumnMembersPrefClass;
+    @FXML
+    private TableColumn<Customer, String> tableColumnMembersPrefType;
+    
+    
+    private Airplane airplane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (int i = 1; i < 8; i++) {
-            for (int j = 1; j < 13; j++) {
-                if (i != 4) {
-                    if (i < 4) {
-                        
-                    }
-                    gridPaneAirplane.add(new Button("Button"), i, j);
-                }
-            }
-        }
+        textAreaSeats.setEditable(false);
+        airplane = new Airplane();
+        
+        // Refresh all the seats
+        refreshSeats();
+        
+        // Generate a temporary customer list
+        tableColumnMembersFirstName.setCellValueFactory(
+                new PropertyValueFactory<>("firstName"));
+        tableColumnMembersLastName.setCellValueFactory(
+                new PropertyValueFactory<>("lastName"));
+        tableColumnMembersAge.setCellValueFactory(
+                new PropertyValueFactory<>("age"));
+        
+        ListProperty<Customer> customers = new SimpleListProperty<>(
+                FXCollections.observableArrayList());
+        customers.add(new Customer("Mario", "Mario", 64, SeatClass.BUSINESS, SeatType.WINDOW));
+        tableViewMembers.getItems().setAll(customers);
         
     }
     
-    private Airplane airplane;
+    private void refreshSeats() {
+        textAreaSeats.setText(airplane.toString());
+    }
 }

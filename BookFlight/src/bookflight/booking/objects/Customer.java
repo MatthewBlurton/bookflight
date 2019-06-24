@@ -7,6 +7,8 @@ package bookflight.booking.objects;
 
 import bookflight.booking.SeatClass;
 import bookflight.booking.SeatType;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -14,56 +16,57 @@ import bookflight.booking.SeatType;
  */
 public class Customer {
     public Customer() {
-        firstName = "";
-        lastName = "";
-        age = 20;
-        seatingClass = SeatClass.ECONOMY;
-        seatingType = SeatType.AISLE;
+        this("", "", 20, SeatClass.ECONOMY, SeatType.AISLE);
     }
     
     public Customer(String firstName, int age) {
-        this();
-        this.firstName = firstName;
-        this.age = age;
+        this(firstName, "", age, SeatClass.ECONOMY, SeatType.AISLE);
     }
     
     public Customer(String firstName, String lastName, int age) {
-        this(firstName, age);
-        this.lastName = lastName;
+        this(firstName, lastName, age, SeatClass.ECONOMY, SeatType.AISLE);
     }
     
-    private String firstName;
-    private String lastName;
-    private int age;
+    public Customer(String firstName, String lastName, int age, SeatClass seatClass, SeatType seatType) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setAge(age);
+        setSeatingClass(seatClass);
+        setSeatingType(seatType);
+    }
+    
+    private final SimpleStringProperty firstName = new SimpleStringProperty("");
+    private final SimpleStringProperty lastName = new SimpleStringProperty("");
+    private final SimpleIntegerProperty age = new SimpleIntegerProperty(20);
     private SeatClass seatingClass;
     private SeatType seatingType;
 
     public String getName() {
-        return lastName.isEmpty() ? firstName : firstName + ", " + lastName;
+        return lastName.get().isEmpty() ? firstName.get() : firstName.get() + ", " + lastName.get();
     }
     
     public String getFirstName() {
-        return firstName;
+        return firstName.get();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.set(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName.get();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName.set(lastName);
     }
 
     public int getAge() {
-        return age;
+        return age.get();
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.age.set(age);
     }
 
     public SeatClass getSeatingClass() {
