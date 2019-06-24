@@ -106,7 +106,8 @@ public class Airplane  {
     private int[] checkForBooking (Customer customer) {
         for (int column = 0; column < columns; column++) {
             for (int row = 0; row < rows; row++) {
-                if (seats[column][row].getBookedBy().equals(customer)) {
+                if (seats[column][row].getBookedBy() != null
+                        && seats[column][row].getBookedBy().equals(customer)) {
                     int[] columnRow = {column, row};
                     return columnRow;
                 }

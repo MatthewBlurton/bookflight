@@ -50,7 +50,7 @@
                   <TableColumn fx:id="tableColumnMembersPrefType" prefWidth="75.0" text="Pref. Type" />
               </columns>
             </TableView>
-            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightButtonAction" prefHeight="25.0" prefWidth="378.0" text="Book Flight" />
+            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightButtonAction" prefHeight="25.0" prefWidth="169.0" text="Book Flight" />
             <Label layoutX="687.0" layoutY="14.0" text="Add Member" />
             <Label layoutX="687.0" layoutY="31.0" text="First Name" />
             <TextField fx:id="textFieldFirstName" layoutX="687.0" layoutY="48.0" promptText="Jack" />
@@ -67,6 +67,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
+            <Button layoutX="495.0" layoutY="336.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="169.0" text="Cancel Flight" />
          </children>
       </AnchorPane>
    </children>

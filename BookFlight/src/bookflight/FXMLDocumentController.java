@@ -178,6 +178,14 @@ public class FXMLDocumentController implements Initializable {
         refreshSeats();
     }
     
+    @FXML
+    private void cancelFlightButtonAction(ActionEvent event) {
+        Customer selectedCustomer =
+                (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
+        airplane.cancelSeat(selectedCustomer);
+        refreshSeats();
+    }
+    
     private void refreshSeats() {
         textAreaSeats.setText(airplane.toString());
     }
