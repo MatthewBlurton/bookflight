@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookflight.FXMLDocumentController">
    <children>
@@ -33,7 +34,7 @@
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="930.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Available Seats" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <TextArea fx:id="textAreaSeats" layoutX="14.0" layoutY="31.0" prefHeight="333.0" prefWidth="254.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0">
+            <TextArea fx:id="textAreaSeats" layoutX="14.0" layoutY="31.0" prefHeight="297.0" prefWidth="254.0" text="       ABC DEF&#10;Row 1  *** ***&#10;Row 2  *** ***&#10;Row 3  *** ***&#10;Row 4  *** ***&#10;Row 5  *** ***&#10;Row 6  *** ***&#10;Row 7  *** ***&#10;Row 8  *** ***&#10;Row 9  *** ***&#10;Row 10 *** ***&#10;Row 11 *** ***&#10;Row 12 *** ***" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0">
                <font>
                   <Font name="Courier New" size="14.0" />
                </font>
@@ -61,6 +62,11 @@
             <ComboBox fx:id="comboBoxSeatType" layoutX="688.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
             <Label layoutX="687.0" layoutY="157.0" text="Preferred Seat Class" />
             <ComboBox fx:id="comboBoxSeatClass" layoutX="688.0" layoutY="175.0" prefWidth="150.0" promptText="Seat Class" />
+            <Text layoutX="37.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="* = Vacant, A = Adult, C = Child">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

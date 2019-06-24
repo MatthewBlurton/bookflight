@@ -173,7 +173,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void bookFlightButtonAction(ActionEvent event) {
         Customer selectedCustomer =
-                (Customer) tableViewMembers.selectionModelProperty().getValue();
+                (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
+        airplane.assignSeat(0, 0, selectedCustomer);
+        refreshSeats();
     }
     
     private void refreshSeats() {

@@ -89,7 +89,30 @@ public class Airplane  {
     }
     
     public void assignSeat(int column, int row, Customer customer) {
+        if (checkForBooking(customer).length > 0) {
+            // TODO: throw an exception so application can show an alert dialogue
+            return;
+        }
         seats[column][row].setBookedBy(customer);
+    }
+    
+    public void cancelSeat(Customer customer) {
+        int[] columnRow = checkForBooking(customer);
+        if (columnRow.length > 0) {
+            seats[columnRow[0]][columnRow[1]].setBookedBy(null);
+        }
+    }
+    
+    private int[] checkForBooking (Customer customer) {
+        for (int column = 0; column < columns; column++) {
+            for (int row = 0; row < rows; row++) {
+                if (seats[column][row].getBookedBy().equals(customer)) {
+                    int[] columnRow = {column, row};
+                    return columnRow;
+                }
+            }
+        }
+        return new int[0];
     }
     
     @Override
