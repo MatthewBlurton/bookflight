@@ -39,9 +39,14 @@
                   <Font name="Courier New" size="14.0" />
                </font>
             </TextArea>
+            <Text layoutX="37.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="* = Vacant, A = Adult, C = Child">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
             <Label layoutX="286.0" layoutY="14.0" text="Members" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="14.0" />
             <Button layoutX="715.0" layoutY="336.0" mnemonicParsing="false" onAction="#addCustomerButtonAction" text="Add Member" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="715.0" />
-            <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="297.0" prefWidth="378.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="286.0">
+            <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="254.0" prefWidth="378.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="286.0">
               <columns>
                 <TableColumn fx:id="tableColumnMembersFirstName" prefWidth="75.0" text="First Name" />
                 <TableColumn fx:id="tableColumnMembersLastName" prefWidth="75.0" text="Last Name" />
@@ -50,7 +55,9 @@
                   <TableColumn fx:id="tableColumnMembersPrefType" prefWidth="75.0" text="Pref. Type" />
               </columns>
             </TableView>
-            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightButtonAction" prefHeight="25.0" prefWidth="169.0" text="Book Flight" />
+            <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightAutoButtonAction" prefHeight="25.0" prefWidth="104.0" text="Auto Booking" />
+            <Button layoutX="423.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightManualButtonAction" prefHeight="25.0" prefWidth="104.0" text="Manual Booking" />
+            <Button layoutX="560.0" layoutY="336.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="104.0" text="Cancel Flight" />
             <Label layoutX="687.0" layoutY="14.0" text="Add Member" />
             <Label layoutX="687.0" layoutY="31.0" text="First Name" />
             <TextField fx:id="textFieldFirstName" layoutX="687.0" layoutY="48.0" promptText="Jack" />
@@ -62,12 +69,10 @@
             <ComboBox fx:id="comboBoxSeatType" layoutX="688.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
             <Label layoutX="687.0" layoutY="157.0" text="Preferred Seat Class" />
             <ComboBox fx:id="comboBoxSeatClass" layoutX="688.0" layoutY="175.0" prefWidth="150.0" promptText="Seat Class" />
-            <Text layoutX="37.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="* = Vacant, A = Adult, C = Child">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Button layoutX="495.0" layoutY="336.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="169.0" text="Cancel Flight" />
+            <TextField fx:id="textFieldMemberRow" layoutX="286.0" layoutY="303.0" />
+            <TextField fx:id="textFieldMemberColumn" layoutX="515.0" layoutY="303.0" />
+            <Label layoutX="286.0" layoutY="286.0" text="Row" />
+            <Label layoutX="622.0" layoutY="286.0" text="Column" textAlignment="RIGHT" />
          </children>
       </AnchorPane>
    </children>

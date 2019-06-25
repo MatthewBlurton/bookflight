@@ -105,7 +105,7 @@ public class Airplane  {
         return null;
     }
     
-    public void assignSeat(int column, int row, Customer customer) {
+    public void assignSeat(int column, int row, Customer customer) throws IndexOutOfBoundsException {
         if (checkForBooking(customer) != null) {
             // TODO: throw an exception so application can show an alert dialogue
             return;
@@ -130,6 +130,10 @@ public class Airplane  {
             }
         }
         return null;
+    }
+    
+    public boolean isBooked(Customer customer) {
+        return checkForBooking(customer) != null;
     }
     
     @Override
