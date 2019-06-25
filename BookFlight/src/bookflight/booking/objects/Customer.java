@@ -42,8 +42,10 @@ public class Customer implements Comparable {
     private SeatClass seatingClass;
     private SeatType seatingType;
 
-    public String getName() {
-        return firstName.get() + lastName.get();
+    public String getAll() {
+        // Depending on what is returned first is the sort priority, in this case its:
+        // firstName, lastName, age, seatingClass, seatingType, and the seatAlloc
+        return getFirstName() + getLastName() + getAge() + getSeatingClass() + getSeatingType() + getSeatAlloc();
     }
     
     public String getFirstName() {
@@ -104,6 +106,6 @@ public class Customer implements Comparable {
     @Override
     public int compareTo(Object o) {
         Customer c = (Customer) o;
-        return this.getName().compareTo(c.getName());
+        return this.getAll().compareTo(c.getAll());
     }
 }

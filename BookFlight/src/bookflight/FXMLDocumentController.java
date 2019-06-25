@@ -136,6 +136,7 @@ public class FXMLDocumentController implements Initializable {
         // Add placeholder customers
         addCustomer(new Customer("Mario", "Mario", 64, SeatClass.FIRST_CLASS, SeatType.WINDOW));
         addCustomer(new Customer("Luigi", "Mario", 63, SeatClass.FIRST_CLASS, SeatType.MIDDLE));
+        addCustomer(new Customer("Wario", "Wario", 62, SeatClass.FIRST_CLASS, SeatType.AISLE));
         
         // Bind adding new member form
         ObservableList<SeatClass> seatClass = FXCollections.observableArrayList(SeatClass.ECONOMY, SeatClass.BUSINESS, SeatClass.FIRST_CLASS);
@@ -191,6 +192,14 @@ public class FXMLDocumentController implements Initializable {
         
         // Add the new customer
         addCustomer(new Customer(first,last,age,seatClass,seatType));
+    }
+    
+    @FXML
+    private void removeCustomerButtonAction(ActionEvent event) {
+        Customer selectedCustomer = (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
+        if (selectedCustomer != null) {
+            removeCustomer(selectedCustomer);
+        }
     }
     
     @FXML
@@ -283,6 +292,18 @@ public class FXMLDocumentController implements Initializable {
             Arrays.sort(customers);
         }
         refreshData();
+    }
+    
+    private void removeCustomer(Customer customer) {
+        int indexFound = Arrays.binarySearch(customers, customer);
+        if (indexFound > -1) {
+            Customer[] newCustomers = new Customer[customers.length - 1];
+            
+            System.arraycopy(customers, 0, newCustomers, 0, indexFound);
+            System.arraycopy(customers, indexFound + 1, newCustomers, indexFound, newCustomers.length - indexFound);
+            customers = newCustomers;
+            refreshData();
+        }
     }
     
     private void bookFlight(int column, int row) throws IndexOutOfBoundsException {
