@@ -7,6 +7,7 @@ package bookflight;
 
 import bookflight.booking.SeatClass;
 import bookflight.booking.SeatType;
+import bookflight.booking.exceptions.SeatTakenException;
 import bookflight.booking.objects.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -224,8 +225,8 @@ public class FXMLDocumentController implements Initializable {
         String errorHeaderText = "";
         String errorContentText = "";
         try {
-            int column = Integer.parseInt(textFieldMemberColumn.getText()) + 1;
-            int row = Integer.parseInt(textFieldMemberRow.getText()) + 1;
+            int column = Integer.parseInt(textFieldMemberColumn.getText()) - 1;
+            int row = Integer.parseInt(textFieldMemberRow.getText()) - 1;
                 
             bookFlight(column, row);
         } catch (NumberFormatException ex) {
@@ -257,7 +258,15 @@ public class FXMLDocumentController implements Initializable {
     private void bookFlight(int column, int row) throws IndexOutOfBoundsException {
         Customer selectedCustomer = 
                 (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
-        airplane.assignSeat(column, row, selectedCustomer);
+        try {
+            airplane.assignSeat(column, row, selectedCustomer);
+        } catch (SeatTakenException ste) {
+            Alert error = new Alert(AlertType.ERROR);
+            error.setHeaderText(ERROR_SEAT_BOOKED_HEADER);
+            error.setContentText(ERROR_SEAT_BOOKED);
+            error.showAndWait();
+        }
+        
         refreshSeats();
     }
     

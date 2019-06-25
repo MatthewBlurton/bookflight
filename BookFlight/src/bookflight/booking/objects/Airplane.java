@@ -7,6 +7,7 @@ package bookflight.booking.objects;
 
 import bookflight.booking.SeatClass;
 import bookflight.booking.SeatType;
+import bookflight.booking.exceptions.SeatTakenException;
 
 /**
  *
@@ -105,22 +106,21 @@ public class Airplane  {
         return null;
     }
     
-    public void assignSeat(int column, int row, Customer customer) throws IndexOutOfBoundsException {
-        if (checkForBooking(customer) != null) {
-            // TODO: throw an exception so application can show an alert dialogue
-            return;
+    public void assignSeat(int column, int row, Customer customer) throws IndexOutOfBoundsException, SeatTakenException {
+        if (seats[column][row].getBookedBy() != null) {
+            throw new SeatTakenException();
         }
         seats[column][row].setBookedBy(customer);
     }
     
     public void cancelSeat(Customer customer) {
-        int[] columnRow = checkForBooking(customer);
+        int[] columnRow = checkIfCustomerBooked(customer);
         if (columnRow != null) {
             seats[columnRow[0]][columnRow[1]].setBookedBy(null);
         }
     }
     
-    private int[] checkForBooking (Customer customer) {
+    private int[] checkIfCustomerBooked (Customer customer) {
         for (int column = 0; column < columns; column++) {
             for (int row = 0; row < rows; row++) {
                 if (seats[column][row].getBookedBy() != null
@@ -133,7 +133,7 @@ public class Airplane  {
     }
     
     public boolean isBooked(Customer customer) {
-        return checkForBooking(customer) != null;
+        return checkIfCustomerBooked(customer) != null;
     }
     
     @Override
