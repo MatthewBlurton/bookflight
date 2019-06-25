@@ -88,8 +88,25 @@ public class Airplane  {
         return seats[column][row];
     }
     
+    public int[] findPreferredSeat(SeatClass seatClass, SeatType seatType) {
+        for (int col = 0; col < columns; col++) {
+            for (int row = 0; row < rows; row++) {
+                if (seats[col][row].getSeatClass() != seatClass
+                        || seats[col][row].getSeatType() != seatType) {
+                    continue;
+                }
+                
+                if (seats[col][row].getBookedBy() == null) {
+                    return new int[] {col, row};
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     public void assignSeat(int column, int row, Customer customer) {
-        if (checkForBooking(customer).length > 0) {
+        if (checkForBooking(customer) != null) {
             // TODO: throw an exception so application can show an alert dialogue
             return;
         }
@@ -98,7 +115,7 @@ public class Airplane  {
     
     public void cancelSeat(Customer customer) {
         int[] columnRow = checkForBooking(customer);
-        if (columnRow.length > 0) {
+        if (columnRow != null) {
             seats[columnRow[0]][columnRow[1]].setBookedBy(null);
         }
     }
@@ -108,12 +125,11 @@ public class Airplane  {
             for (int row = 0; row < rows; row++) {
                 if (seats[column][row].getBookedBy() != null
                         && seats[column][row].getBookedBy().equals(customer)) {
-                    int[] columnRow = {column, row};
-                    return columnRow;
+                    return new int[] {column, row};
                 }
             }
         }
-        return new int[0];
+        return null;
     }
     
     @Override
