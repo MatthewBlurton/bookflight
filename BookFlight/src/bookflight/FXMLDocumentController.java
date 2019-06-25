@@ -10,11 +10,14 @@ import bookflight.booking.SeatType;
 import bookflight.booking.exceptions.SeatTakenException;
 import bookflight.booking.objects.*;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -58,7 +61,7 @@ public class FXMLDocumentController implements Initializable {
     private TextArea textAreaSeats;
     
     
-    // Form for booking members
+    // Table for members
     @FXML
     private TableView tableViewMembers;
     @FXML
@@ -73,7 +76,10 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<Customer, String> tableColumnMembersPrefClass;
     @FXML
     private TableColumn<Customer, String> tableColumnMembersPrefType;
+    @FXML
+    private TextField textFieldMemberSearch;
     
+    // Form for selecting seat to book
     @FXML
     private TextField textFieldMemberColumn;
     @FXML
@@ -93,15 +99,14 @@ public class FXMLDocumentController implements Initializable {
     
     // Program related data
     private Airplane airplane;
-    private ObservableList<Customer> customers;
+    
+    private Customer[] customers;
+    private ObservableList<Customer> customerVisibleList;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textAreaSeats.setEditable(false);
         airplane = new Airplane();
-        
-        // Refresh all the seats
-        refreshData();
         
         // Prepare tableViewMembers for displaying Customer objects
         tableColumnMembersSeatAllocation.setCellValueFactory(
@@ -117,13 +122,20 @@ public class FXMLDocumentController implements Initializable {
         tableColumnMembersPrefType.setCellValueFactory(
                 new PropertyValueFactory<>("seatingType"));
         
+        // Add search listener
+        textFieldMemberSearch.textProperty().addListener((Observable, oldValue, newValue) -> {
+            newValue = newValue.toUpperCase();
+            newValue = newValue.trim();
+            System.out.println("new value: " + newValue);
+        });
+        
         // Initialise customer collection and assign it to tableViewMembers
-        customers = FXCollections.observableArrayList();
-        tableViewMembers.setItems(customers);
+        customerVisibleList = FXCollections.observableArrayList();
+        tableViewMembers.setItems(customerVisibleList);
         
         // Add placeholder customers
-        customers.add(new Customer("Mario", "Mario", 64, SeatClass.FIRST_CLASS, SeatType.WINDOW));
-        customers.add(new Customer("Luigi", "Mario", 63, SeatClass.FIRST_CLASS, SeatType.MIDDLE));
+        addCustomer(new Customer("Mario", "Mario", 64, SeatClass.FIRST_CLASS, SeatType.WINDOW));
+        addCustomer(new Customer("Luigi", "Mario", 63, SeatClass.FIRST_CLASS, SeatType.MIDDLE));
         
         // Bind adding new member form
         ObservableList<SeatClass> seatClass = FXCollections.observableArrayList(SeatClass.ECONOMY, SeatClass.BUSINESS, SeatClass.FIRST_CLASS);
@@ -178,7 +190,7 @@ public class FXMLDocumentController implements Initializable {
         SeatType seatType = (SeatType) comboBoxSeatType.getValue();
         
         // Add the new customer
-        customers.add(new Customer(first,last,age,seatClass,seatType));
+        addCustomer(new Customer(first,last,age,seatClass,seatType));
     }
     
     @FXML
@@ -260,6 +272,19 @@ public class FXMLDocumentController implements Initializable {
         refreshData();
     }
     
+    private void addCustomer(Customer customer) {
+        if (customers == null) {
+            customers = new Customer[] {customer};
+        } else {
+            Customer[] originalCustomers = customers;
+            customers = new Customer[originalCustomers.length + 1];
+            System.arraycopy(originalCustomers, 0, customers, 0, originalCustomers.length);
+            customers[customers.length - 1] = customer;
+            Arrays.sort(customers);
+        }
+        refreshData();
+    }
+    
     private void bookFlight(int column, int row) throws IndexOutOfBoundsException {
         Customer selectedCustomer = 
                 (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
@@ -277,6 +302,6 @@ public class FXMLDocumentController implements Initializable {
     
     private void refreshData() {
         textAreaSeats.setText(airplane.toString());
-        tableViewMembers.refresh();
+        customerVisibleList.setAll(customers);
     }
 }

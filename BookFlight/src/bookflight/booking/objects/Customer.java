@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author j187411
  */
-public class Customer {
+public class Customer implements Comparable {
     public Customer() {
         this("", "", 20, SeatClass.ECONOMY, SeatType.AISLE);
     }
@@ -43,7 +43,7 @@ public class Customer {
     private SeatType seatingType;
 
     public String getName() {
-        return lastName.get().isEmpty() ? firstName.get() : firstName.get() + ", " + lastName.get();
+        return firstName.get() + lastName.get();
     }
     
     public String getFirstName() {
@@ -99,5 +99,11 @@ public class Customer {
         return "firstName: " + getFirstName() + "\r\nlastName: " + getLastName()
                 + "\r\nage: " + getAge() + "\r\nseatingClass: " + getSeatingClass().toString()
                 + "\r\nseatingType: " + getSeatingType().toString();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Customer c = (Customer) o;
+        return this.getName().compareTo(c.getName());
     }
 }
