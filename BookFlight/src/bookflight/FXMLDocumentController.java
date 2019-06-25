@@ -103,6 +103,9 @@ public class FXMLDocumentController implements Initializable {
     private Customer[] customers;
     private ObservableList<Customer> customerVisibleList;
     
+    // UI related data
+    private String searchTerm = "";
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         textAreaSeats.setEditable(false);
@@ -125,8 +128,8 @@ public class FXMLDocumentController implements Initializable {
         // Add search listener
         textFieldMemberSearch.textProperty().addListener((Observable, oldValue, newValue) -> {
             newValue = newValue.toUpperCase();
-            newValue = newValue.trim();
-            System.out.println("new value: " + newValue);
+            searchTerm = newValue.trim();
+            refreshData();
         });
         
         // Initialise customer collection and assign it to tableViewMembers
@@ -323,6 +326,17 @@ public class FXMLDocumentController implements Initializable {
     
     private void refreshData() {
         textAreaSeats.setText(airplane.toString());
+        
+        if (!searchTerm.isEmpty()) {
+            // Temporarily Create a new customer to use in the binary search
+            Customer searchCustomer = new Customer(searchTerm, -1);
+            int found = Arrays.binarySearch(customers, searchCustomer);
+            if (found > -1) {
+                customerVisibleList.clear();
+                customerVisibleList.add(customers[found]);
+                return;
+            }
+        }
         customerVisibleList.setAll(customers);
     }
 }
