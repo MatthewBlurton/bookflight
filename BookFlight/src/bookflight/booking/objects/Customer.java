@@ -38,6 +38,7 @@ public class Customer {
     private final SimpleStringProperty firstName = new SimpleStringProperty("");
     private final SimpleStringProperty lastName = new SimpleStringProperty("");
     private final SimpleIntegerProperty age = new SimpleIntegerProperty(20);
+    private final SimpleStringProperty seatAlloc = new SimpleStringProperty("");
     private SeatClass seatingClass;
     private SeatType seatingType;
 
@@ -84,7 +85,15 @@ public class Customer {
     public void setSeatingType(SeatType seatingType) {
         this.seatingType = seatingType;
     }
-
+    
+    public String getSeatAlloc() {
+        return seatAlloc.get();
+    }
+    
+    public void setSeatAlloc(String seatAlloc) {
+        this.seatAlloc.set(seatAlloc);
+    }
+    
     @Override
     public String toString() {
         return "firstName: " + getFirstName() + "\r\nlastName: " + getLastName()

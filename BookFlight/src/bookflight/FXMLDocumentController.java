@@ -10,6 +10,7 @@ import bookflight.booking.SeatType;
 import bookflight.booking.exceptions.SeatTakenException;
 import bookflight.booking.objects.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +62,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableView tableViewMembers;
     @FXML
+    private TableColumn<Customer, String> tableColumnMembersSeatAllocation;
+    @FXML
     private TableColumn<Customer, String> tableColumnMembersFirstName;
     @FXML
     private TableColumn<Customer, String> tableColumnMembersLastName;
@@ -98,9 +101,11 @@ public class FXMLDocumentController implements Initializable {
         airplane = new Airplane();
         
         // Refresh all the seats
-        refreshSeats();
+        refreshData();
         
         // Prepare tableViewMembers for displaying Customer objects
+        tableColumnMembersSeatAllocation.setCellValueFactory(
+                new PropertyValueFactory<>("seatAlloc"));
         tableColumnMembersFirstName.setCellValueFactory(
                 new PropertyValueFactory<>("firstName"));
         tableColumnMembersLastName.setCellValueFactory(
@@ -252,7 +257,7 @@ public class FXMLDocumentController implements Initializable {
         Customer selectedCustomer =
                 (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
         airplane.cancelSeat(selectedCustomer);
-        refreshSeats();
+        refreshData();
     }
     
     private void bookFlight(int column, int row) throws IndexOutOfBoundsException {
@@ -267,10 +272,11 @@ public class FXMLDocumentController implements Initializable {
             error.showAndWait();
         }
         
-        refreshSeats();
+        refreshData();
     }
     
-    private void refreshSeats() {
+    private void refreshData() {
         textAreaSeats.setText(airplane.toString());
+        tableViewMembers.refresh();
     }
 }

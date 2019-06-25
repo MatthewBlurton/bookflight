@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookflight.FXMLDocumentController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookflight.FXMLDocumentController">
    <children>
       <MenuBar>
         <menus>
@@ -31,7 +31,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="930.0">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="375.0" prefWidth="1002.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Available Seats" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <TextArea fx:id="textAreaSeats" layoutX="14.0" layoutY="31.0" prefHeight="297.0" prefWidth="254.0" text="       ABC DEF&#10;Row 1  *** ***&#10;Row 2  *** ***&#10;Row 3  *** ***&#10;Row 4  *** ***&#10;Row 5  *** ***&#10;Row 6  *** ***&#10;Row 7  *** ***&#10;Row 8  *** ***&#10;Row 9  *** ***&#10;Row 10 *** ***&#10;Row 11 *** ***&#10;Row 12 *** ***" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0">
@@ -44,35 +44,38 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Label layoutX="286.0" layoutY="14.0" text="Members" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="14.0" />
-            <Button layoutX="715.0" layoutY="336.0" mnemonicParsing="false" onAction="#addCustomerButtonAction" text="Add Member" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="715.0" />
-            <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="254.0" prefWidth="378.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="286.0">
+            <Label layoutX="284.0" layoutY="40.0" text="Members" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="40.0" />
+            <Button layoutX="778.0" layoutY="336.0" mnemonicParsing="false" onAction="#addCustomerButtonAction" text="Add Member" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="778.0" />
+            <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="225.0" prefWidth="452.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="286.0">
               <columns>
-                <TableColumn fx:id="tableColumnMembersFirstName" prefWidth="75.0" text="First Name" />
-                <TableColumn fx:id="tableColumnMembersLastName" prefWidth="75.0" text="Last Name" />
-                  <TableColumn fx:id="tableColumnMembersAge" prefWidth="75.0" text="Age" />
-                  <TableColumn fx:id="tableColumnMembersPrefClass" prefWidth="75.0" text="Pref. Class" />
+                  <TableColumn fx:id="tableColumnMembersSeatAllocation" prefWidth="90.0" text="Seat Allocation" />
+                <TableColumn fx:id="tableColumnMembersFirstName" prefWidth="90.0" text="First Name" />
+                <TableColumn fx:id="tableColumnMembersLastName" prefWidth="90.0" text="Last Name" />
+                  <TableColumn fx:id="tableColumnMembersAge" prefWidth="29.0" text="Age" />
+                  <TableColumn fx:id="tableColumnMembersPrefClass" prefWidth="76.0" text="Pref. Class" />
                   <TableColumn fx:id="tableColumnMembersPrefType" prefWidth="75.0" text="Pref. Type" />
               </columns>
             </TableView>
             <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightAutoButtonAction" prefHeight="25.0" prefWidth="104.0" text="Auto Booking" />
-            <Button layoutX="423.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightManualButtonAction" prefHeight="25.0" prefWidth="104.0" text="Manual Booking" />
-            <Button layoutX="560.0" layoutY="336.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="104.0" text="Cancel Flight" />
-            <Label layoutX="687.0" layoutY="14.0" text="Add Member" />
-            <Label layoutX="687.0" layoutY="31.0" text="First Name" />
-            <TextField fx:id="textFieldFirstName" layoutX="687.0" layoutY="48.0" promptText="Jack" />
-            <Label layoutX="688.0" layoutY="73.0" text="Last Name" />
-            <TextField fx:id="textFieldLastName" layoutX="687.0" layoutY="90.0" promptText="Layland" />
-            <Label layoutX="688.0" layoutY="115.0" text="Age" />
-            <TextField fx:id="textFieldAge" layoutX="688.0" layoutY="132.0" promptText="15" />
-            <Label layoutX="688.0" layoutY="200.0" text="Preferred Seat Type" />
-            <ComboBox fx:id="comboBoxSeatType" layoutX="688.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
-            <Label layoutX="687.0" layoutY="157.0" text="Preferred Seat Class" />
-            <ComboBox fx:id="comboBoxSeatClass" layoutX="688.0" layoutY="175.0" prefWidth="150.0" promptText="Seat Class" />
+            <Button layoutX="460.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightManualButtonAction" prefHeight="25.0" prefWidth="104.0" text="Manual Booking" />
+            <Button layoutX="634.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="104.0" text="Cancel Flight" />
+            <Label layoutX="750.0" layoutY="14.0" text="Add Passenger" />
+            <Label layoutX="750.0" layoutY="31.0" text="First Name" />
+            <TextField fx:id="textFieldFirstName" layoutX="750.0" layoutY="48.0" promptText="Jack" />
+            <Label layoutX="751.0" layoutY="73.0" text="Last Name" />
+            <TextField fx:id="textFieldLastName" layoutX="750.0" layoutY="90.0" promptText="Layland" />
+            <Label layoutX="751.0" layoutY="115.0" text="Age" />
+            <TextField fx:id="textFieldAge" layoutX="751.0" layoutY="132.0" promptText="15" />
+            <Label layoutX="751.0" layoutY="200.0" text="Preferred Seat Type" />
+            <ComboBox fx:id="comboBoxSeatType" layoutX="751.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
+            <Label layoutX="750.0" layoutY="157.0" text="Preferred Seat Class" />
+            <ComboBox fx:id="comboBoxSeatClass" layoutX="751.0" layoutY="175.0" prefWidth="150.0" promptText="Seat Class" />
             <TextField fx:id="textFieldMemberRow" layoutX="286.0" layoutY="303.0" />
-            <TextField fx:id="textFieldMemberColumn" layoutX="515.0" layoutY="303.0" />
+            <TextField fx:id="textFieldMemberColumn" layoutX="589.0" layoutY="302.0" />
             <Label layoutX="286.0" layoutY="286.0" text="Row" />
-            <Label layoutX="622.0" layoutY="286.0" text="Column" textAlignment="RIGHT" />
+            <Label layoutX="696.0" layoutY="285.0" text="Column" textAlignment="RIGHT" />
+            <Label layoutX="284.0" layoutY="14.0" text="Search:" />
+            <TextField layoutX="337.0" layoutY="10.0" prefHeight="25.0" prefWidth="401.0" />
          </children>
       </AnchorPane>
    </children>

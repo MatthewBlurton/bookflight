@@ -111,12 +111,37 @@ public class Airplane  {
             throw new SeatTakenException();
         }
         seats[column][row].setBookedBy(customer);
+        customer.setSeatAlloc(getSeatColumn(column) + row);
     }
     
     public void cancelSeat(Customer customer) {
-        int[] columnRow = checkIfCustomerBooked(customer);
-        if (columnRow != null) {
-            seats[columnRow[0]][columnRow[1]].setBookedBy(null);
+        int[] ColumnRow = checkIfCustomerBooked(customer);
+        if (ColumnRow != null) {
+            int column = ColumnRow[0];
+            int row = ColumnRow[1];
+            seats[column][row].setBookedBy(null);
+            customer.setSeatAlloc("");
+        }
+    }
+    
+    private String getSeatColumn(int column) {
+        switch (column) {
+            case 0:
+                return "A";
+            case 1:
+                return "B";
+            case 2:
+                return "C";
+            case 3:
+                return "D";
+                
+            case 4:
+                return "E";
+                
+            case 5:
+                return "F";
+            default:
+                return "";
         }
     }
     
