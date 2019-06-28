@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Handles anything for getting data
- * @author Matthew
+ * Does miscellaneous calculations and searching
+ * @author Matthew Blurton
  */
 public abstract class DataManagement {
     /**
@@ -33,11 +33,11 @@ public abstract class DataManagement {
      * Selects a unique number based on two values (column, and row)
      * @param column The column used to generate a unique number
      * @param row The row used to generate a unique number
-     * @return 
+     * @return the unique number associated with the provided column and row
      */
     public static long getCantorPair(int column, int row) {
-        // Original cantor formulae 0.5(n1n2)(n1n2+1)+n2
-        // (the 1000* gives an extra 1000 bytes that can be input)
+        // Original cantor formulae 0.5(n1+n2)(n1+n2+1)+n2
+        // (the 1000* gives more space that can allow for larger integers)
         return Math.round(1000*(0.5 * (column + row) * (column + row + 1) + row));
     }
 }

@@ -6,8 +6,8 @@
 package bookflight.booking;
 
 /**
- *
- * @author mjblu
+ * All possible seating types
+ * @author Matthew Blurton
  */
 public enum SeatType {
     AISLE, MIDDLE, WINDOW;

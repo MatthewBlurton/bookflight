@@ -6,8 +6,8 @@
 package bookflight.booking;
 
 /**
- *
- * @author mjblu
+ * All possible seating classes
+ * @author Matthew Blurton
  */
 public enum SeatClass {
     ECONOMY, BUSINESS, FIRST_CLASS;

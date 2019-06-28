@@ -12,8 +12,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
- * @author j187411
+ * Main application launcher
+ * @author Matthew Blurton
  */
 public class BookFlight extends Application {
     @Override
@@ -27,6 +27,7 @@ public class BookFlight extends Application {
     }
 
     /**
+     * launch the application
      * @param args the command line arguments
      */
     public static void main(String[] args) {

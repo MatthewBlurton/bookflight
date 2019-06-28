@@ -5,24 +5,17 @@
  */
 package bookflight.utilities;
 
-import bookflight.booking.objects.Airplane;
 import bookflight.booking.objects.Customer;
-import bookflight.booking.objects.Seat;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 /**
  *
- * @author j187411
+ * @author Matthew Blurton
  */
 public abstract class FileManagement {
     /**
@@ -32,7 +25,7 @@ public abstract class FileManagement {
      * @param column The column to be written to
      * @param row The row to be written to
      * @param customerID The unique id from the customer
-     * @exception IOException is thrown when writing to file is unsuccessfull
+     * @exception IOException is thrown when writing to file is unsuccessful
      */
     public static void writeSeatToFile(String path, int column, int row, int customerID) throws IOException {
         RandomAccessFile file = null;

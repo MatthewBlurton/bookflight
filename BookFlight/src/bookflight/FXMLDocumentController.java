@@ -35,8 +35,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- *
- * @author j187411
+ * The main front-end to the application
+ * @author Matthew Blurton
  */
 public class FXMLDocumentController implements Initializable {
     // Dialogue messages
@@ -154,8 +154,8 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         
-        customers = FileManagement.readCustomersFromFile(FILE_CUSTOMER);
-        if (customers == null) {// If no customers where read, create new placeholder customers
+        // If no customers where read, create new placeholder customers
+        if (customers == null) {
             addCustomer(new Customer("Mario", "Mario", 64, SeatClass.FIRST_CLASS, SeatType.WINDOW));
             addCustomer(new Customer("Luigi", "Mario", 63, SeatClass.FIRST_CLASS, SeatType.MIDDLE));
             addCustomer(new Customer("Wario", "Wario", 62, SeatClass.FIRST_CLASS, SeatType.AISLE));
@@ -175,12 +175,6 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
         }
-        
-        // TODO: Allocate seats from file if there are none
-//        for (int i = 1; i <= 3; i++) {
-//            System.out.println(FileManagement.readSeatFromFile("C:/temp/seats.txt", i, 1));
-//            System.out.println(customers[i-1].getID());
-//        }
         
         // Bind adding new member form
         ObservableList<SeatClass> seatClass = FXCollections.observableArrayList(SeatClass.ECONOMY, SeatClass.BUSINESS, SeatClass.FIRST_CLASS);
@@ -248,7 +242,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
     /**
-     * uses tableViewMembers to find the selected customer. If a customer is selected
+     * uses tableViewMembers to find the selected customer. If a customer is selected, run the removeCustomer method
      * remove the customer from the list of customers
      * @param event 
      */
@@ -300,8 +294,14 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    /**
+     * Manually assign a flight, avoids taking preferences into consideration.
+     * @param event 
+     */
     @FXML
     private void bookFlightManualButtonAction(ActionEvent event) {
+        // Get the selected customer, if there is none throw a no member selected error
+        // Otherwise if there is already a booking in the manually designated seat, throw an already booked error.
         Customer selectedCustomer = (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
         if ( selectedCustomer == null) {
             Alert error = new Alert(AlertType.ERROR);
@@ -320,21 +320,24 @@ public class FXMLDocumentController implements Initializable {
         boolean errorOccurred = false;
         String errorHeaderText = "";
         String errorContentText = "";
+        
+        // Book a flight for the selected customer using their specific location
         try {
             int column = Integer.parseInt(textFieldMemberColumn.getText()) - 1;
             int row = Integer.parseInt(textFieldMemberRow.getText()) - 1;
                 
             bookFlight(column, row);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {// Called if the user entered a bad row or column (used letters instead of numbers as an example)
             errorOccurred = true;
             errorHeaderText = ERROR_BAD_ROW_COLUMN_HEADER;
             errorContentText = ERROR_BAD_ROW_COLUMN;
-        } catch (ArrayIndexOutOfBoundsException ex) {
+        } catch (ArrayIndexOutOfBoundsException ex) {// Called if the user entered a row and column that doesn't exist
             errorOccurred = true;
             errorHeaderText = ERROR_NULL_SEAT_HEADER;
             errorContentText = ERROR_NULL_SEAT;
         }
         
+        // If any errors occurred during the runtime of this method, throw an error with the appropriate message
         if (errorOccurred) {
             Alert error = new Alert(AlertType.ERROR);
             error.setHeaderText(errorHeaderText);
@@ -343,13 +346,17 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    /**
+     * If the user cancels their flight, deallocate the seat and update the seats file
+     * @param event 
+     */
     @FXML
     private void cancelFlightButtonAction(ActionEvent event) {
         Customer selectedCustomer =
                 (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
         int[] colRow = airplane.cancelSeat(selectedCustomer);
-        if (colRow != null) {
-            try {
+        if (colRow != null) { // if colRow returned nothing then the customer already booked, no need to proceed
+            try { // attempt to write the newly de-allocated seat location to file
                 FileManagement.writeSeatToFile(FILE_SEAT, colRow[0], colRow[1], -1);
             } catch (IOException ex) {
                 Alert error = new Alert(AlertType.ERROR);
@@ -360,22 +367,35 @@ public class FXMLDocumentController implements Initializable {
         refreshData();
     }
     
+    /**
+     * Adds a new customer to the customers array, and saves the changes to a customers file
+     * @param customer The new customer to add to customers
+     */
     private void addCustomer(Customer customer) {
-        if (customers == null) {
+        if (customers == null) {// If customers is empty, then create one new customer for that array
             customers = new Customer[] {customer};
             FileManagement.writePassengersToFile(FILE_CUSTOMER, customers);
-        } else {
+        } else {// Otherwise replace the array with a new array, adding the new customer to the end of the array
             Customer[] originalCustomers = customers;
             customers = new Customer[originalCustomers.length + 1];
             System.arraycopy(originalCustomers, 0, customers, 0, originalCustomers.length);
             customers[customers.length - 1] = customer;
             Arrays.sort(customers);
+            
+            // Write the updated customers to file
             FileManagement.writePassengersToFile(FILE_CUSTOMER, customers);
         }
         refreshData();
     }
     
+    /**
+     * Remove a customer from the customers array by creating a new array that does not include it,
+     * implements binary search to find the appropriate customer index
+     * @param customer The customer to delete
+     */
     private void removeCustomer(Customer customer) {
+        // Sort the customers, then try to find the customer to delete using binary search
+        Arrays.sort(customers);
         int indexFound = Arrays.binarySearch(customers, customer);
         if (indexFound > -1) { // If the customer is found with a specific ID, remove any bookings, and delete the customer
             Customer[] newCustomers = new Customer[customers.length - 1];
@@ -383,13 +403,15 @@ public class FXMLDocumentController implements Initializable {
             System.arraycopy(customers, 0, newCustomers, 0, indexFound);
             System.arraycopy(customers, indexFound + 1, newCustomers, indexFound, newCustomers.length - indexFound);
             customers = newCustomers;
+            
+            // Write the newly updated customers to file
             FileManagement.writePassengersToFile(FILE_CUSTOMER, customers);
             refreshData();
         }
     }
     
     /**
-     * Attempt to book a flight at a specific seat in a certain location
+     * The user attempts to book a seat for the flight
      * @param column the column seat
      * @param row the row seat
      */
@@ -397,10 +419,11 @@ public class FXMLDocumentController implements Initializable {
         Customer selectedCustomer = 
                 (Customer) tableViewMembers.getSelectionModel().getSelectedItem();
         try {
+            // Attempt to assign a seat then update the seats file
             airplane.assignSeat(column, row, selectedCustomer);
             int customerId = selectedCustomer.getID();
             FileManagement.writeSeatToFile(FILE_SEAT, column, row, customerId);
-        } catch (SeatTakenException ste) {// Error occurs when 
+        } catch (SeatTakenException ste) {// Error occurs when the customer attempts to book an already booked seat
             Alert error = new Alert(AlertType.ERROR);
             error.setHeaderText(ERROR_SEAT_BOOKED_HEADER);
             error.setContentText(ERROR_SEAT_BOOKED);
@@ -419,6 +442,9 @@ public class FXMLDocumentController implements Initializable {
         refreshData();
     }
     
+    /**
+     * Update all GUI components of the application with updated data from the bookings
+     */
     private void refreshData() {
         textAreaSeats.setText(airplane.toString());
         

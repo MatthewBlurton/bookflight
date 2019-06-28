@@ -6,8 +6,8 @@
 package bookflight.booking.exceptions;
 
 /**
- *
- * @author mjblu
+ * If a seat has already been booked, this exception will be thrown
+ * @author Matthew Blurton
  */
 public class SeatTakenException extends Exception {
     @Override
