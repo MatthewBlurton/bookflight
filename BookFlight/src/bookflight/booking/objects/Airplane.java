@@ -114,14 +114,16 @@ public class Airplane  {
         customer.setSeatAlloc(getSeatColumn(column) + row);
     }
     
-    public void cancelSeat(Customer customer) {
-        int[] ColumnRow = checkIfCustomerBooked(customer);
-        if (ColumnRow != null) {
-            int column = ColumnRow[0];
-            int row = ColumnRow[1];
+    public int[] cancelSeat(Customer customer) {
+        int[] columnRow = checkIfCustomerBooked(customer);
+        if (columnRow != null) {
+            int column = columnRow[0];
+            int row = columnRow[1];
             seats[column][row].setBookedBy(null);
             customer.setSeatAlloc("");
         }
+        
+        return columnRow;
     }
     
     private String getSeatColumn(int column) {

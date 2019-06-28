@@ -44,7 +44,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Label layoutX="284.0" layoutY="40.0" text="Members" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="40.0" />
+            <Label layoutX="284.0" layoutY="40.0" text="Passengers" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="40.0" />
             <Button layoutX="777.0" layoutY="335.0" mnemonicParsing="false" onAction="#addCustomerButtonAction" text="Add Passenger" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="777.0" />
             <TableView fx:id="tableViewMembers" layoutX="286.0" layoutY="31.0" prefHeight="225.0" prefWidth="452.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="286.0">
               <columns>
@@ -58,7 +58,7 @@
             </TableView>
             <Button layoutX="286.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightAutoButtonAction" prefHeight="25.0" prefWidth="104.0" text="Auto Booking" />
             <Button layoutX="460.0" layoutY="336.0" mnemonicParsing="false" onAction="#bookFlightManualButtonAction" prefHeight="25.0" prefWidth="104.0" text="Manual Booking" />
-            <Button layoutX="634.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="104.0" text="Cancel Flight" />
+            <Button layoutX="634.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelFlightButtonAction" prefHeight="25.0" prefWidth="104.0" text="Cancel Booking" />
             <Label layoutX="750.0" layoutY="14.0" text="Add Passenger" />
             <Label layoutX="750.0" layoutY="31.0" text="First Name" />
             <TextField fx:id="textFieldFirstName" layoutX="750.0" layoutY="48.0" promptText="Jack" />
@@ -66,10 +66,10 @@
             <TextField fx:id="textFieldLastName" layoutX="750.0" layoutY="90.0" promptText="Layland" />
             <Label layoutX="751.0" layoutY="115.0" text="Age" />
             <TextField fx:id="textFieldAge" layoutX="751.0" layoutY="132.0" promptText="15" />
-            <Label layoutX="751.0" layoutY="200.0" text="Preferred Seat Type" />
-            <ComboBox fx:id="comboBoxSeatType" layoutX="751.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
             <Label layoutX="750.0" layoutY="157.0" text="Preferred Seat Class" />
             <ComboBox fx:id="comboBoxSeatClass" layoutX="751.0" layoutY="175.0" prefWidth="150.0" promptText="Seat Class" />
+            <Label layoutX="751.0" layoutY="200.0" text="Preferred Seat Type" />
+            <ComboBox fx:id="comboBoxSeatType" layoutX="751.0" layoutY="217.0" prefWidth="150.0" promptText="Seat Type" />
             <TextField fx:id="textFieldMemberRow" layoutX="286.0" layoutY="303.0" />
             <TextField fx:id="textFieldMemberColumn" layoutX="589.0" layoutY="302.0" />
             <Label layoutX="286.0" layoutY="286.0" text="Row" />

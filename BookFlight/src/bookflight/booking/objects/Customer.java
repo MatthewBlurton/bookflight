@@ -7,6 +7,9 @@ package bookflight.booking.objects;
 
 import bookflight.booking.SeatClass;
 import bookflight.booking.SeatType;
+import java.beans.Transient;
+import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicInteger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -14,13 +17,18 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author j187411
  */
-public class Customer implements Comparable {
+public class Customer implements Comparable, Serializable {
     public Customer() {
-        this("", "", 20, SeatClass.ECONOMY, SeatType.AISLE);
+        this("", 20);
+    }
+    
+    // If this where in production I would reccomend a different solution. This directly sets the id for the initial load
+    public Customer(int id) {
+        this.id = id;
     }
     
     public Customer(String firstName, int age) {
-        this(firstName, "", age, SeatClass.ECONOMY, SeatType.AISLE);
+        this(firstName, "", age);
     }
     
     public Customer(String firstName, String lastName, int age) {
@@ -28,58 +36,65 @@ public class Customer implements Comparable {
     }
     
     public Customer(String firstName, String lastName, int age, SeatClass seatClass, SeatType seatType) {
+        this(firstName, lastName, age, seatClass, seatType, 1);
+    }
+    
+    public Customer(String firstName, String lastName, int age, SeatClass seatClass, SeatType seatType, int id) {
         setFirstName(firstName);
         setLastName(lastName);
         setAge(age);
         setSeatingClass(seatClass);
         setSeatingType(seatType);
+        setID(id);
     }
     
-    private final SimpleStringProperty firstName = new SimpleStringProperty("");
-    private final SimpleStringProperty lastName = new SimpleStringProperty("");
-    private final SimpleIntegerProperty age = new SimpleIntegerProperty(20);
-    private final SimpleStringProperty seatAlloc = new SimpleStringProperty("");
+    private transient static final AtomicInteger COUNT = new AtomicInteger(1);
+    private int id = -1;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private transient String seatAlloc;
     private SeatClass seatingClass;
     private SeatType seatingType;
-
-    public String getCompareText() {
-        // Depending on what is returned first is the sort priority, in this case its:
-        // firstName, lastName, age, seatingClass, seatingType, and the seatAlloc
-//        String textCompare = getFirstName() + getLastName() + getAge()
-//                + getSeatingClass() + getSeatingType() + getSeatAlloc();
-        String textCompare = getFirstName() + getLastName();
-        return textCompare.toUpperCase();
+    
+    public int getID() {
+        return this.id;
+    }
+    
+    private void setID(int id) {
+        COUNT.set(Math.max(id, COUNT.get()));
+        this.id = COUNT.getAndIncrement();
     }
     
     public String getFirstName() {
-        return firstName.get();
+        return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+    public final void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return lastName.get();
+        return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+    public final void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getAge() {
-        return age.get();
+        return age;
     }
 
-    public void setAge(int age) {
-        this.age.set(age);
+    public final void setAge(int age) {
+        this.age = age;
     }
 
     public SeatClass getSeatingClass() {
         return seatingClass;
     }
 
-    public void setSeatingClass(SeatClass seatingClass) {
+    public final void setSeatingClass(SeatClass seatingClass) {
         this.seatingClass = seatingClass;
     }
 
@@ -87,16 +102,16 @@ public class Customer implements Comparable {
         return seatingType;
     }
 
-    public void setSeatingType(SeatType seatingType) {
+    public final void setSeatingType(SeatType seatingType) {
         this.seatingType = seatingType;
     }
     
     public String getSeatAlloc() {
-        return seatAlloc.get();
+        return seatAlloc;
     }
     
     public void setSeatAlloc(String seatAlloc) {
-        this.seatAlloc.set(seatAlloc);
+        this.seatAlloc = seatAlloc;
     }
     
     @Override
@@ -109,6 +124,6 @@ public class Customer implements Comparable {
     @Override
     public int compareTo(Object o) {
         Customer c = (Customer) o;
-        return this.getCompareText().compareTo(c.getCompareText());
+        return String.valueOf(getID()).compareTo(String.valueOf(c.getID()));
     }
 }
