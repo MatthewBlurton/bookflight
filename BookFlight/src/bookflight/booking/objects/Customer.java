@@ -116,8 +116,8 @@ public class Customer implements Comparable, Serializable {
     }
 
     /**
-     * Set the first name of the customer
-     * @param firstName what to set the first name to
+     * Set the last name of the customer
+     * @param lastName what to set the last name to
      */
     public final void setLastName(String lastName) {
         this.lastName = lastName;
